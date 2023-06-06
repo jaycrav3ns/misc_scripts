@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Twitter Embed Code to Text</title>
+
+  <style>
+    body {
+      background-color: #131313;
+      margin: 20px;
+      color: #FFFFFF;
+    }
+
+    h1 {
+      color: #029fda;
+    }
+
+    textarea {
+      background-color: #202020;
+      color: #FFFFFF;
+      margin-left: 20px;
+    }
+
+    button {
+      margin-left: 20px;
+    }
+
+    label {
+      color: #FFFFFF;
+      margin-left: 20px;
+    }
+  </style>
+
+</head>
+
+<body>
+
+<h1>Tweet to Text</h1>
+
+<form id="tweetForm">
+  <label for="embedCode">Paste Tweet Embed Code:</label>
+  <br>
+  <textarea id="embedCode" rows="10" cols="60"></textarea>
+  <br>
+
+  <button type="submit">Convert</button>
+  <br><br>
+  <textarea id="generatedDocuWiki" rows="5" cols="80"></textarea>
+  <br>
+  <button onclick="copyToClipboard()">Copy</button>
+  <span id="copiedText"></span>
+</form>
+
+<script>
+  document.getElementById('tweetForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    // Retrieve the embed code from the textarea
+    const embedCode = document.getElementById('embedCode').value;
+
+    // Extract elements from the embed code
+    const extractedElements = extractElementsFromEmbedCode(embedCode);
+
+    // Generate the DocuWiki markup
+    const docuwikiMarkup = generateDocuWikiMarkup(extractedElements);
+
+    // Display the generated DocuWiki markup
+    const generatedDocuWikiTextarea = document.getElementById('generatedDocuWiki');
+    generatedDocuWikiTextarea.innerText = docuwikiMarkup;
+  });
+
+  function extractElementsFromEmbedCode(embedCode) {
+    // Extract the inner content between the <blockquote> tags
+    const innerContentMatch = embedCode.match(/<blockquote(?: class="twitter-tweet")?>([\s\S]+)<\/blockquote>/);
+    if (innerContentMatch) {
+      const innerContent = innerContentMatch[1];
+
+      // Create a temporary DOM element
+      const tempElement = document.createElement('div');
+      tempElement.innerHTML = innerContent;
+
+      // Select all the anchor elements
+      const anchorElements = tempElement.getElementsByTagName('a');
+
+      // Array to store the extracted elements
+      const extractedElements = [];
+
+      // Loop through the anchor elements and extract the desired elements
+      for (const anchorElement of anchorElements) {
+        // Extract the URL from the anchor element
+        const url = anchorElement.getAttribute('href');
+
+        // Check if the URL is for an image
+        if (url.includes('pic.twitter.com')) {
+          const imageUrl = url;
+          const trueSource = imageUrl.replace(/(https:\/\/pbs.twimg.com\/media\/[^?]+).*/, "$1");
+          extractedElements.push(`Image URL: ${imageUrl}`);
+          extractedElements.push(`True source: ${trueSource}`);
+        }
+        // Check if the URL is for a hashtag
+        else if (url.startsWith('https://twitter.com/hashtag/')) {
+          const hashtag = anchorElement.innerText;
+          extractedElements.push(`Hashtag: ${hashtag}`);
+        }
+        // Check if the URL is a regular URL
+        else if (url.startsWith('http')) {
+          extractedElements.push(`URL: ${url}`);
+        }
+      }
+
+      // Extract the tweet text
+      const tweetElement = tempElement.querySelector('p');
+      if (tweetElement) {
+        const tweetText = tweetElement.innerText.trim();
+        extractedElements.push(`Text: ${tweetText}`);
+      }
+
+      // Return the extracted elements
+      return extractedElements;
+    }
+
+    // If no inner content is found, return an empty array
+    return [];
+  }
+
+  function generateDocuWikiMarkup(elements) {
+    let docuwikiMarkup = '';
+
+    // Loop through the extracted elements and generate the DocuWiki markup
+    for (const element of elements) {
+      // Remove HTML tags from the element
+      const cleanedElement = element.replace(/<\/?[^>]+(>|$)/g, '');
+
+      // Add a line break for each cleaned element
+      docuwikiMarkup += cleanedElement + '\n';
+    }
+
+    // Return the DocuWiki markup
+    return docuwikiMarkup;
+  }
+
+  function copyToClipboard() {
+    const generatedDocuWikiTextarea = document.getElementById('generatedDocuWiki');
+    generatedDocuWikiTextarea.select();
+    document.execCommand('copy');
+
+    const copiedText = document.getElementById('copiedText');
+    copiedText.textContent = 'Copied!';
+  }
+</script>
+
+</body>
+</html>
