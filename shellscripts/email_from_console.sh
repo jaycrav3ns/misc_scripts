@@ -5,8 +5,10 @@ clear -x
 # Detect package manager and set package names
 if command -v apt-get &>/dev/null; then
     pkgapp="apt-get"
+		mailapp="mailutils"
 elif command -v dnf &>/dev/null; then
     pkgapp="dnf"
+		mailapp="mailx"
 else
     echo "Unsupported package manager."
     exit 1
@@ -14,7 +16,7 @@ fi
 
 # Function to check and install missing dependencies
 check_dependencies() {
-    local deps=("mailx" "msmtp")
+    local deps=("$mailapp" "msmtp")
     local missing_deps=()
 
     for dep in "${deps[@]}"; do
