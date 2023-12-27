@@ -16,7 +16,7 @@ fi
 
 # Function to check and install missing dependencies
 check_dependencies() {
-    local deps=("$mailapp" "msmtp")
+    local deps=($mailapp "msmtp")
     local missing_deps=()
 
     for dep in "${deps[@]}"; do
