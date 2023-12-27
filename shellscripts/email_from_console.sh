@@ -5,10 +5,10 @@ clear -x
 # Detect package manager and set package names
 if command -v apt-get &>/dev/null; then
     pkgapp="apt-get"
-		mailapp="mailutils"
+    mailapp="mailutils"
 elif command -v dnf &>/dev/null; then
     pkgapp="dnf"
-		mailapp="mailx"
+    mailapp="mailx"
 else
     echo "Unsupported package manager."
     exit 1
