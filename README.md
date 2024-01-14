@@ -1,7 +1,7 @@
 #### JS
 **check_JSON_characters.js** - ﻿Check JSON for unallowable characters\
 **json2html.zip** - NodeJS configuration using Handlebars template to output JSON to .html\
-**tweet2text_V3.html** - Strip the markup from Twitter's "copy <embed> code" to plain/text
+**tweet2text_V3.html** - Strip the markup from Twitter's "copy \<embed> code" to plain/text
 
 #### Python
 **lexina_assistant_openai** - Simple python assistant, (alexa, siri) with OpenAI API Key input\
