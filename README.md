@@ -11,6 +11,13 @@
 **youtube_pls_url_extract_V2.py** - Playlist URL's can print to console or download (youtube_dl)
 
 #### shellscripts
+**add_album_art.sh** - Apply cover art to a single file or whole directory (`yad` GUI)\
+**always_on_top.sh** - Tray icon keeps window "on top". Toggle, select and optional keybinding.\
+**archive_epxlorer.sh** - Mounts archive as fusefs & auto-browse using `nnn`.  Unmounts on exit.\
+**base64_to_img_tag.sh** - Generates a base64 <img> tag from an input file.\
+**fade_in_out.sh** - Merge a directory of videos with a fade in/out effect between clips.\
+**montage_to_pdf.sh** - Generate PDF files from image files in a grid format using montage.\
+**screenshot_ffmpeg.sh** - Takes a screenshot using ffmpeg.\
 **autotube.sh** - Automatically play song at console typing only "Artist Name" "Song Title"\
 **cd_ls.sh** - Add to .bashrc or .bash_aliases. Makes `cd` automatically `ls` after entering\
 **email_from_console.sh** - Setup wizard for `msmtp`. Console e-mail using external SMTP\
