@@ -1,5 +1,6 @@
 #### JS
 **check_JSON_characters.js** - ﻿Check JSON for unallowable characters\
+**copy_emoji_ff-ext.zip** - Simple firefox extention. Copies an emoji to clipboard.\
 **json2html.zip** - NodeJS configuration using Handlebars template to output JSON to .html\
 **tweet2text_V3.html** - Strip the markup from Twitter's "copy \<embed> code" to plain/text
 
